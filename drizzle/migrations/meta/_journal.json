@@ -8,6 +8,13 @@
       "when": 1789988250541,
       "tag": "0000_conectamente_schema_inicial",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789988320749,
+      "tag": "0001_politicas_storage",
+      "breakpoints": true
     }
   ]
 }
