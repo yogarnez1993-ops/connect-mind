@@ -47,10 +47,13 @@ function Reclamaciones() {
     detalle: "",
   });
 
-  async function enviar(e: React.FormEvent) {
+  async function enviar(e: React.FormEvent): Promise<void> {
     e.preventDefault();
     const { error } = await supabase.from("reclamaciones").insert(form);
-    if (error) return toast.error("No pudimos registrar tu reclamo");
+    if (error) {
+      toast.error("No pudimos registrar tu reclamo");
+      return;
+    }
     setEnviado(true);
   }
 

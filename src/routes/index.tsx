@@ -53,7 +53,7 @@ function Icono({ nombre, className }: { nombre: string; className?: string }) {
   ];
   const Fallback = Icons.Heart;
   const C = Comp ?? Fallback;
-  return <C className={className} />;
+  return <C className={className ?? ""} />;
 }
 
 function Inicio() {
