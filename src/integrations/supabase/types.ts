@@ -209,6 +209,33 @@ export type Database = {
         }
         Relationships: []
       }
+      consents: {
+        Row: {
+          accepted_at: string
+          dni: string
+          firma_nombre: string
+          ip: string | null
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          accepted_at?: string
+          dni: string
+          firma_nombre: string
+          ip?: string | null
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          accepted_at?: string
+          dni?: string
+          firma_nombre?: string
+          ip?: string | null
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       cortes_semanales: {
         Row: {
           estado: string
@@ -236,6 +263,30 @@ export type Database = {
           id?: string
           total_pagar_psicologos?: number
           total_recaudado?: number
+        }
+        Relationships: []
+      }
+      legal_docs: {
+        Row: {
+          actualizado_at: string
+          contenido: string
+          id: string
+          tipo: string
+          titulo: string
+        }
+        Insert: {
+          actualizado_at?: string
+          contenido: string
+          id?: string
+          tipo: string
+          titulo: string
+        }
+        Update: {
+          actualizado_at?: string
+          contenido?: string
+          id?: string
+          tipo?: string
+          titulo?: string
         }
         Relationships: []
       }
@@ -315,9 +366,12 @@ export type Database = {
           fecha_creacion: string
           id: string
           iv: string
+          nota: string | null
           paciente_id: string
           para_susalud: boolean
+          pizarra_url: string | null
           psicologo_id: string
+          tareas: string | null
           version: number
           visible_paciente: boolean
         }
@@ -328,9 +382,12 @@ export type Database = {
           fecha_creacion?: string
           id?: string
           iv: string
+          nota?: string | null
           paciente_id: string
           para_susalud?: boolean
+          pizarra_url?: string | null
           psicologo_id: string
+          tareas?: string | null
           version?: number
           visible_paciente?: boolean
         }
@@ -341,9 +398,12 @@ export type Database = {
           fecha_creacion?: string
           id?: string
           iv?: string
+          nota?: string | null
           paciente_id?: string
           para_susalud?: boolean
+          pizarra_url?: string | null
           psicologo_id?: string
+          tareas?: string | null
           version?: number
           visible_paciente?: boolean
         }
@@ -423,6 +483,7 @@ export type Database = {
           notas_admin: string | null
           paciente_id: string
           paquete_id: string
+          problema: string | null
           psicologo_asignado_id: string | null
           sesiones_hechas: number
           sesiones_totales: number
@@ -441,6 +502,7 @@ export type Database = {
           notas_admin?: string | null
           paciente_id: string
           paquete_id: string
+          problema?: string | null
           psicologo_asignado_id?: string | null
           sesiones_hechas?: number
           sesiones_totales: number
@@ -459,6 +521,7 @@ export type Database = {
           notas_admin?: string | null
           paciente_id?: string
           paquete_id?: string
+          problema?: string | null
           psicologo_asignado_id?: string | null
           sesiones_hechas?: number
           sesiones_totales?: number
@@ -611,20 +674,26 @@ export type Database = {
           cci: string | null
           celular: string | null
           cnp: string
+          colegiado: boolean
           created_at: string
           cuenta: string | null
           descripcion: string | null
           dni: string | null
+          docs_url: string | null
           email: string | null
+          entrevista_fecha: string | null
+          entrevista_link: string | null
           especialidades: Json
           estado: string
           foto_url: string | null
           id: string
+          motivo_rechazo: string | null
           nombre: string
           ranking_cierres: number
           rating: number
           tipo_pago: string
           user_id: string | null
+          verificado: boolean
         }
         Insert: {
           agenda_disponible?: Json
@@ -633,20 +702,26 @@ export type Database = {
           cci?: string | null
           celular?: string | null
           cnp: string
+          colegiado?: boolean
           created_at?: string
           cuenta?: string | null
           descripcion?: string | null
           dni?: string | null
+          docs_url?: string | null
           email?: string | null
+          entrevista_fecha?: string | null
+          entrevista_link?: string | null
           especialidades?: Json
           estado?: string
           foto_url?: string | null
           id?: string
+          motivo_rechazo?: string | null
           nombre: string
           ranking_cierres?: number
           rating?: number
           tipo_pago?: string
           user_id?: string | null
+          verificado?: boolean
         }
         Update: {
           agenda_disponible?: Json
@@ -655,20 +730,26 @@ export type Database = {
           cci?: string | null
           celular?: string | null
           cnp?: string
+          colegiado?: boolean
           created_at?: string
           cuenta?: string | null
           descripcion?: string | null
           dni?: string | null
+          docs_url?: string | null
           email?: string | null
+          entrevista_fecha?: string | null
+          entrevista_link?: string | null
           especialidades?: Json
           estado?: string
           foto_url?: string | null
           id?: string
+          motivo_rechazo?: string | null
           nombre?: string
           ranking_cierres?: number
           rating?: number
           tipo_pago?: string
           user_id?: string | null
+          verificado?: boolean
         }
         Relationships: []
       }
@@ -841,32 +922,50 @@ export type Database = {
         Row: {
           cita_id: string
           consentimiento_grabacion: boolean
+          duracion_real: number
           estado: string
+          expires_at: string | null
           fin: string | null
           grabacion_permitida: boolean
           id: string
           inicio: string | null
+          is_active: boolean
+          pago_id: string | null
+          reconexiones: number
           sala_id: string
+          share_link: string
         }
         Insert: {
           cita_id: string
           consentimiento_grabacion?: boolean
+          duracion_real?: number
           estado?: string
+          expires_at?: string | null
           fin?: string | null
           grabacion_permitida?: boolean
           id?: string
           inicio?: string | null
+          is_active?: boolean
+          pago_id?: string | null
+          reconexiones?: number
           sala_id: string
+          share_link?: string
         }
         Update: {
           cita_id?: string
           consentimiento_grabacion?: boolean
+          duracion_real?: number
           estado?: string
+          expires_at?: string | null
           fin?: string | null
           grabacion_permitida?: boolean
           id?: string
           inicio?: string | null
+          is_active?: boolean
+          pago_id?: string | null
+          reconexiones?: number
           sala_id?: string
+          share_link?: string
         }
         Relationships: [
           {
