@@ -129,7 +129,7 @@ function Auth() {
     setCargando(false);
   }
 
-  async function ingresar(e: React.FormEvent) {
+  async function ingresar(e: React.FormEvent): Promise<void> {
     e.preventDefault();
     setCargando(true);
     const { error } = await supabase.auth.signInWithPassword({
@@ -137,16 +137,22 @@ function Auth() {
       password: form.password,
     });
     setCargando(false);
-    if (error) return toast.error("Correo o contraseña incorrectos");
+    if (error) {
+      toast.error("Correo o contraseña incorrectos");
+      return;
+    }
     toast.success("Bienvenido de vuelta");
     navigate({ to: "/categoria" });
   }
 
-  async function google() {
+  async function google(): Promise<void> {
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
     });
-    if (result.error) return toast.error("No pudimos iniciar sesión con Google");
+    if (result.error) {
+      toast.error("No pudimos iniciar sesión con Google");
+      return;
+    }
     if (result.redirected) return;
     navigate({ to: "/categoria" });
   }
