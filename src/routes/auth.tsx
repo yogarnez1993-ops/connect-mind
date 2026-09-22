@@ -81,14 +81,24 @@ function Auth() {
     setForm((f) => ({ ...f, [campo]: valor }));
   }
 
-  async function registrar(e: React.FormEvent) {
+  async function registrar(e: React.FormEvent): Promise<void> {
     e.preventDefault();
-    if (!/^[0-9]{8}$/.test(form.dni)) return toast.error("El DNI debe tener 8 dígitos");
-    if (!/^9[0-9]{8}$/.test(form.celular))
-      return toast.error("El celular debe tener 9 dígitos y empezar con 9");
-    if (form.password.length < 8 || !/[A-Z]/.test(form.password) || !/[0-9]/.test(form.password))
-      return toast.error("La contraseña necesita 8 caracteres, una mayúscula y un número");
-    if (!acepta) return toast.error("Debes aceptar las políticas y el consentimiento");
+    if (!/^[0-9]{8}$/.test(form.dni)) {
+      toast.error("El DNI debe tener 8 dígitos");
+      return;
+    }
+    if (!/^9[0-9]{8}$/.test(form.celular)) {
+      toast.error("El celular debe tener 9 dígitos y empezar con 9");
+      return;
+    }
+    if (form.password.length < 8 || !/[A-Z]/.test(form.password) || !/[0-9]/.test(form.password)) {
+      toast.error("La contraseña necesita 8 caracteres, una mayúscula y un número");
+      return;
+    }
+    if (!acepta) {
+      toast.error("Debes aceptar las políticas y el consentimiento");
+      return;
+    }
 
     setCargando(true);
     const problemas = JSON.parse(localStorage.getItem("problemas_elegidos") ?? "[]");
@@ -102,7 +112,8 @@ function Auth() {
     });
     if (error) {
       setCargando(false);
-      return toast.error(error.message);
+      toast.error(error.message);
+      return;
     }
     const { data: s } = await supabase.auth.getSession();
     if (s.session) {
