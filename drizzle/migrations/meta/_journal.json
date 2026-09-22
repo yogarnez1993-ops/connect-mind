@@ -15,6 +15,13 @@
       "when": 1789988320749,
       "tag": "0001_politicas_storage",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790044585493,
+      "tag": "0002_sala_video_legal_consentimientos",
+      "breakpoints": true
     }
   ]
 }
