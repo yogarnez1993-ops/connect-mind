@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as LegalRouteImport } from './routes/legal'
 import { Route as ReclamacionesRouteImport } from './routes/reclamaciones'
 import { Route as AuthenticatedCategoriaRouteImport } from './routes/_authenticated.categoria'
+import { Route as AuthenticatedLegalFirmarRouteImport } from './routes/_authenticated.legal.firmar'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,6 +31,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReclamacionesRoute = ReclamacionesRouteImport.update({
   id: '/reclamaciones',
   path: '/reclamaciones',
@@ -39,45 +46,62 @@ const AuthenticatedCategoriaRoute = AuthenticatedCategoriaRouteImport.update({
   path: '/categoria',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedLegalFirmarRoute =
+  AuthenticatedLegalFirmarRouteImport.update({
+    id: '/legal/firmar',
+    path: '/legal/firmar',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/legal': typeof LegalRoute
   '/reclamaciones': typeof ReclamacionesRoute
   '/categoria': typeof AuthenticatedCategoriaRoute
+  '/legal/firmar': typeof AuthenticatedLegalFirmarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/legal': typeof LegalRoute
   '/reclamaciones': typeof ReclamacionesRoute
   '/categoria': typeof AuthenticatedCategoriaRoute
+  '/legal/firmar': typeof AuthenticatedLegalFirmarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/auth': typeof AuthRoute
+  '/legal': typeof LegalRoute
   '/reclamaciones': typeof ReclamacionesRoute
   '/_authenticated/categoria': typeof AuthenticatedCategoriaRoute
+  '/_authenticated/legal/firmar': typeof AuthenticatedLegalFirmarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/reclamaciones' | '/categoria'
+  fullPaths:
+    '/' | '/auth' | '/legal' | '/reclamaciones' | '/categoria' | '/legal/firmar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reclamaciones' | '/categoria'
+  to:
+    '/' | '/auth' | '/legal' | '/reclamaciones' | '/categoria' | '/legal/firmar'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/legal'
     | '/reclamaciones'
     | '/_authenticated/categoria'
+    | '/_authenticated/legal/firmar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthRoute: typeof AuthRoute
+  LegalRoute: typeof LegalRoute
   ReclamacionesRoute: typeof ReclamacionesRoute
 }
 
@@ -104,6 +128,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reclamaciones': {
       id: '/reclamaciones'
       path: '/reclamaciones'
@@ -118,15 +149,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCategoriaRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/legal/firmar': {
+      id: '/_authenticated/legal/firmar'
+      path: '/legal/firmar'
+      fullPath: '/legal/firmar'
+      preLoaderRoute: typeof AuthenticatedLegalFirmarRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
   AuthenticatedCategoriaRoute: typeof AuthenticatedCategoriaRoute
+  AuthenticatedLegalFirmarRoute: typeof AuthenticatedLegalFirmarRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedCategoriaRoute: AuthenticatedCategoriaRoute,
+  AuthenticatedLegalFirmarRoute: AuthenticatedLegalFirmarRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -137,6 +177,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthRoute: AuthRoute,
+  LegalRoute: LegalRoute,
   ReclamacionesRoute: ReclamacionesRoute,
 }
 export const routeTree = rootRouteImport
