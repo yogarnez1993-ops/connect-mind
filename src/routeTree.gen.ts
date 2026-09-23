@@ -16,6 +16,9 @@ import { Route as LegalRouteImport } from './routes/legal'
 import { Route as ReclamacionesRouteImport } from './routes/reclamaciones'
 import { Route as AuthenticatedCategoriaRouteImport } from './routes/_authenticated.categoria'
 import { Route as AuthenticatedLegalFirmarRouteImport } from './routes/_authenticated.legal.firmar'
+import { Route as AuthenticatedPacienteEsperaRouteImport } from './routes/_authenticated.paciente.espera'
+import { Route as AuthenticatedPacientePaquetesRouteImport } from './routes/_authenticated.paciente.paquetes'
+import { Route as AuthenticatedPacientePagarPagoIdRouteImport } from './routes/_authenticated.paciente.pagar.$pagoId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +55,24 @@ const AuthenticatedLegalFirmarRoute =
     path: '/legal/firmar',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedPacienteEsperaRoute =
+  AuthenticatedPacienteEsperaRouteImport.update({
+    id: '/paciente/espera',
+    path: '/paciente/espera',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPacientePaquetesRoute =
+  AuthenticatedPacientePaquetesRouteImport.update({
+    id: '/paciente/paquetes',
+    path: '/paciente/paquetes',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPacientePagarPagoIdRoute =
+  AuthenticatedPacientePagarPagoIdRouteImport.update({
+    id: '/paciente/pagar/$pagoId',
+    path: '/paciente/pagar/$pagoId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,6 +81,9 @@ export interface FileRoutesByFullPath {
   '/reclamaciones': typeof ReclamacionesRoute
   '/categoria': typeof AuthenticatedCategoriaRoute
   '/legal/firmar': typeof AuthenticatedLegalFirmarRoute
+  '/paciente/espera': typeof AuthenticatedPacienteEsperaRoute
+  '/paciente/paquetes': typeof AuthenticatedPacientePaquetesRoute
+  '/paciente/pagar/$pagoId': typeof AuthenticatedPacientePagarPagoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -68,6 +92,9 @@ export interface FileRoutesByTo {
   '/reclamaciones': typeof ReclamacionesRoute
   '/categoria': typeof AuthenticatedCategoriaRoute
   '/legal/firmar': typeof AuthenticatedLegalFirmarRoute
+  '/paciente/espera': typeof AuthenticatedPacienteEsperaRoute
+  '/paciente/paquetes': typeof AuthenticatedPacientePaquetesRoute
+  '/paciente/pagar/$pagoId': typeof AuthenticatedPacientePagarPagoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,14 +105,33 @@ export interface FileRoutesById {
   '/reclamaciones': typeof ReclamacionesRoute
   '/_authenticated/categoria': typeof AuthenticatedCategoriaRoute
   '/_authenticated/legal/firmar': typeof AuthenticatedLegalFirmarRoute
+  '/_authenticated/paciente/espera': typeof AuthenticatedPacienteEsperaRoute
+  '/_authenticated/paciente/paquetes': typeof AuthenticatedPacientePaquetesRoute
+  '/_authenticated/paciente/pagar/$pagoId': typeof AuthenticatedPacientePagarPagoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/legal' | '/reclamaciones' | '/categoria' | '/legal/firmar'
+    | '/'
+    | '/auth'
+    | '/legal'
+    | '/reclamaciones'
+    | '/categoria'
+    | '/legal/firmar'
+    | '/paciente/espera'
+    | '/paciente/paquetes'
+    | '/paciente/pagar/$pagoId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/auth' | '/legal' | '/reclamaciones' | '/categoria' | '/legal/firmar'
+    | '/'
+    | '/auth'
+    | '/legal'
+    | '/reclamaciones'
+    | '/categoria'
+    | '/legal/firmar'
+    | '/paciente/espera'
+    | '/paciente/paquetes'
+    | '/paciente/pagar/$pagoId'
   id:
     | '__root__'
     | '/'
@@ -95,6 +141,9 @@ export interface FileRouteTypes {
     | '/reclamaciones'
     | '/_authenticated/categoria'
     | '/_authenticated/legal/firmar'
+    | '/_authenticated/paciente/espera'
+    | '/_authenticated/paciente/paquetes'
+    | '/_authenticated/paciente/pagar/$pagoId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -156,17 +205,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLegalFirmarRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/paciente/espera': {
+      id: '/_authenticated/paciente/espera'
+      path: '/paciente/espera'
+      fullPath: '/paciente/espera'
+      preLoaderRoute: typeof AuthenticatedPacienteEsperaRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/paciente/paquetes': {
+      id: '/_authenticated/paciente/paquetes'
+      path: '/paciente/paquetes'
+      fullPath: '/paciente/paquetes'
+      preLoaderRoute: typeof AuthenticatedPacientePaquetesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/paciente/pagar/$pagoId': {
+      id: '/_authenticated/paciente/pagar/$pagoId'
+      path: '/paciente/pagar/$pagoId'
+      fullPath: '/paciente/pagar/$pagoId'
+      preLoaderRoute: typeof AuthenticatedPacientePagarPagoIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
   AuthenticatedCategoriaRoute: typeof AuthenticatedCategoriaRoute
   AuthenticatedLegalFirmarRoute: typeof AuthenticatedLegalFirmarRoute
+  AuthenticatedPacienteEsperaRoute: typeof AuthenticatedPacienteEsperaRoute
+  AuthenticatedPacientePaquetesRoute: typeof AuthenticatedPacientePaquetesRoute
+  AuthenticatedPacientePagarPagoIdRoute: typeof AuthenticatedPacientePagarPagoIdRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedCategoriaRoute: AuthenticatedCategoriaRoute,
   AuthenticatedLegalFirmarRoute: AuthenticatedLegalFirmarRoute,
+  AuthenticatedPacienteEsperaRoute: AuthenticatedPacienteEsperaRoute,
+  AuthenticatedPacientePaquetesRoute: AuthenticatedPacientePaquetesRoute,
+  AuthenticatedPacientePagarPagoIdRoute: AuthenticatedPacientePagarPagoIdRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

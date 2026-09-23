@@ -25,7 +25,7 @@ export type Database = {
           link_video: string | null
           paciente_id: string
           pago_id: string | null
-          psicologo_id: string
+          psicologo_id: string | null
           recordatorio_enviado: boolean
           tipo: string
         }
@@ -39,7 +39,7 @@ export type Database = {
           link_video?: string | null
           paciente_id: string
           pago_id?: string | null
-          psicologo_id: string
+          psicologo_id?: string | null
           recordatorio_enviado?: boolean
           tipo?: string
         }
@@ -53,7 +53,7 @@ export type Database = {
           link_video?: string | null
           paciente_id?: string
           pago_id?: string | null
-          psicologo_id?: string
+          psicologo_id?: string | null
           recordatorio_enviado?: boolean
           tipo?: string
         }
@@ -378,10 +378,10 @@ export type Database = {
         Insert: {
           cie10?: string | null
           cita_id?: string | null
-          contenido_encriptado: string
+          contenido_encriptado?: string
           fecha_creacion?: string
           id?: string
-          iv: string
+          iv?: string
           nota?: string | null
           paciente_id: string
           para_susalud?: boolean
@@ -482,7 +482,7 @@ export type Database = {
           monto_pagado: number
           notas_admin: string | null
           paciente_id: string
-          paquete_id: string
+          paquete_id: string | null
           problema: string | null
           psicologo_asignado_id: string | null
           sesiones_hechas: number
@@ -501,7 +501,7 @@ export type Database = {
           monto_pagado: number
           notas_admin?: string | null
           paciente_id: string
-          paquete_id: string
+          paquete_id?: string | null
           problema?: string | null
           psicologo_asignado_id?: string | null
           sesiones_hechas?: number
@@ -520,7 +520,7 @@ export type Database = {
           monto_pagado?: number
           notas_admin?: string | null
           paciente_id?: string
-          paquete_id?: string
+          paquete_id?: string | null
           problema?: string | null
           psicologo_asignado_id?: string | null
           sesiones_hechas?: number
@@ -948,7 +948,7 @@ export type Database = {
           is_active?: boolean
           pago_id?: string | null
           reconexiones?: number
-          sala_id: string
+          sala_id?: string
           share_link?: string
         }
         Update: {
